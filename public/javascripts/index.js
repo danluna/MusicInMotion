@@ -14,24 +14,12 @@ $(document).ready(function() {
 
 
   var genreBoxColor;
-  $(".genreBox").on("mouseover", function() {
-    genreBoxColor = $(this).css("background-color");
-    $(this).css("background-color", "green");
-    $(this).css('cursor', 'pointer');
-  });
 
   $(".genreBox").on("mouseout", function() {
     $(this).css("background-color", genreBoxColor);
   });
-
-  $("#soundPlayer").on("mouseover", function() {
-    $(this).css('cursor', 'pointer');
-  });
-
-  $("#genreBox0").css("border-color", "red");
+  
   $("#genreBox" + scrollHighlighter).css("color", "red");
-
-
 });
 
 
@@ -270,10 +258,9 @@ var scrollHighlighter = 0;
 function genreScrollDown() {
 
   // Check if highlighter at end of list
-  if(scrollHighlighter == 5 && genreIndex == 12) {
+  if(scrollHighlighter == 5 && genreIndex == 7) {
     // At very bottom, no need to scroll down
-  }
-  if(scrollHighlighter == 5) {
+  } else if(scrollHighlighter == 5) {
     genreIndex++;
     $("#genreBox0").html(genreList[genreIndex]);
     $("#genreBox1").html(genreList[genreIndex + 1]);
@@ -281,58 +268,43 @@ function genreScrollDown() {
     $("#genreBox3").html(genreList[genreIndex + 3]);
     $("#genreBox4").html(genreList[genreIndex + 4]);
     $("#genreBox5").html(genreList[genreIndex + 5]);
-  }
-  else { // Scroll was not at last index
+  } else { // Scroll was not at last index
     scrollHighlighter++;
-    genreIndex++;
+    //genreIndex++;
     nextScrolledBar();
   }
-
-
 }
 
 function genreScrollUp() {
   if(genreIndex == 0 && scrollHighlighter == 0) {
     // No need to do anything
-  }
-  else if(genreIndex == 0) {
+  } else if (scrollHighlighter == 0) {
+    genreIndex--;
+    $("#genreBox0").html(genreList[genreIndex]);
+    $("#genreBox1").html(genreList[genreIndex + 1]);
+    $("#genreBox2").html(genreList[genreIndex + 2]);
+    $("#genreBox3").html(genreList[genreIndex + 3]);
+    $("#genreBox4").html(genreList[genreIndex + 4]);
+    $("#genreBox5").html(genreList[genreIndex + 5]);
+  } else {
     scrollHighlighter--;
     nextScrolledBar();
-  }
-  else if(scrollHighlighter == 0) {
-    genreIndex--;
-    $("#genreBox0").html(genreList[genreIndex]);
-    $("#genreBox1").html(genreList[genreIndex + 1]);
-    $("#genreBox2").html(genreList[genreIndex + 2]);
-    $("#genreBox3").html(genreList[genreIndex + 3]);
-    $("#genreBox4").html(genreList[genreIndex + 4]);
-    $("#genreBox5").html(genreList[genreIndex + 5]);
-  }
-  else {
-    genreIndex--;
-    scrollHighlighter--;
-    $("#genreBox0").html(genreList[genreIndex]);
-    $("#genreBox1").html(genreList[genreIndex + 1]);
-    $("#genreBox2").html(genreList[genreIndex + 2]);
-    $("#genreBox3").html(genreList[genreIndex + 3]);
-    $("#genreBox4").html(genreList[genreIndex + 4]);
-    $("#genreBox5").html(genreList[genreIndex + 5]);
   }
 }
 
 // Highlight the correct genreBox
 function nextScrolledBar() {
-  $("#genreBox" + scrollHighlighter).css("background-color", "green");
-  $("#genreBox" + (scrollHighlighter + 1)).css("border-color", "black");
-  $("#genreBox" + (scrollHighlighter - 1)).css("border-color", "black");
+  //$("#genreBox" + scrollHighlighter).css("background-color", "green");
+  $("#genreBox" + (scrollHighlighter + 1)).css("border-color", "#F0F0F0");
+  $("#genreBox" + (scrollHighlighter - 1)).css("border-color", "#F0F0F0");
 
   $("#genreBox" + scrollHighlighter).css("color", "red");
-  $("#genreBox" + (scrollHighlighter + 1)).css("color", "black");
-  $("#genreBox" + (scrollHighlighter - 1)).css("color", "black");
+  $("#genreBox" + (scrollHighlighter + 1)).css("color", "#F0F0F0");
+  $("#genreBox" + (scrollHighlighter - 1)).css("color", "#F0F0F0");
 }
 
 // Call to start playing a specific genre.
 // The correct genre identified by the genreIndex.
 function selectGenre() {
-  playGenre(genreList[genreIndex]);
+  playGenre(genreList[genreIndex + scrollHighlighter]);
 }
