@@ -10,21 +10,13 @@
     </div>
     <div id="container">
       <div id="left">
-        <div id="genreTitle">Genres</div>
         <div id="genreList">
-          <div class="genreBox" id="ambient">Ambient</div>
-          <div class="genreBox">Classical</div>
-          <div class="genreBox">Country</div>
-          <div class="genreBox">Dance</div>
-          <div class="genreBox">Electronic</div>
-          <div class="genreBox">Folk</div>
-          <div class="genreBox">Hip Hop</div>
-          <div class="genreBox">Jazz</div>
-          <div class="genreBox">Metal</div>
-          <div class="genreBox">Pop</div>
-          <div class="genreBox">Rap</div>
-          <div class="genreBox">Rock</div>
-          <div class="genreBox">Techno</div>
+          <div class="genreBox" id="genreBox0">Ambient</div>
+          <div class="genreBox" id="genreBox1">Classical</div>
+          <div class="genreBox" id="genreBox2">Country</div>
+          <div class="genreBox" id="genreBox3">Dance</div>
+          <div class="genreBox" id="genreBox4">Electronic</div>
+          <div class="genreBox" id="genreBox5">Folk</div>
         </div>
       </div>
       <div id="right">
@@ -57,6 +49,134 @@
     <script src="http://connect.soundcloud.com/sdk.js"></script>
     <script src="/javascripts/index.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="https://js.leapmotion.com/0.2.0/leap.min.js"></script>
+
+
+    <script>
+      var CIRCLE_DURATION = 750;
+      var CIRCLE_RADIUS = 50;
+      var CIRCLE_PROGRESS = 0.8;
+      var SWIPE_DURATION = 150;
+      var SWIPE_DISTANCE = 175;
+      var GESTURE_DELAY = 500;
+
+      var timeLastGesture = new Date().getTime();
+
+      var controller = new Leap.Controller({enableGestures: true, frameEventName: "animationFrame"});
+      controller.on('connect', function() {
+        console.log('Sucessfully connected');
+      });
+
+      controller.on('deviceConnected', function() {
+        console.log('A Leap device has been connected');
+      });
+
+      controller.on('deviceDisconnected', function() {
+        console.log('A Leap device has been disconnected');
+      });
+
+      controller.on('ready', function() {
+        console.log('Started Leap');
+      });
+
+      controller.on('animationFrame', function(frame) {
+
+        var timeCurGesture = new Date().getTime();
+        var timeSinceLastGesture = timeCurGesture - timeLastGesture;
+        if (timeSinceLastGesture > GESTURE_DELAY) {
+          var numFingers = frame.fingers.length;
+          var seenGesture = false;
+
+          for (var i = 0; i < frame.gestures.length; i++) {
+            var gesture = frame.gestures[i];
+            var type = gesture.type;
+            switch(type) {
+              case "circle":
+                seenGesture = OnCircle(gesture);
+                break;
+              case "swipe":
+                seenGesture = OnSwipe(gesture, numFingers);
+                break;
+              case "screenTap":
+                seenGesture = OnScreenTap(gesture, numFingers);
+                break;
+              case "keyTap":
+                seenGesture = OnKeyTap(gesture);
+                break;
+            }
+
+            if (seenGesture) {
+              timeLastGesture = timeCurGesture;
+              break;
+            }
+          }
+        }
+      });
+
+      function OnCircle(gesture) {
+        if (gesture.duration >= CIRCLE_DURATION && 
+          gesture.state == 'stop' &&
+          gesture.progress >= CIRCLE_PROGRESS &&
+          gesture.radius >= CIRCLE_RADIUS) {
+            var clockwise = gesture.normal[2] <= 0;
+            clockwise ? console.log('circle clockwise') : console.log('circle counter-clockwise');
+            return true;
+        }
+        return false;
+      }
+
+      function OnSwipe(gesture, numFingers) {
+        var distance = Math.max(Math.abs(gesture.startPosition[0] - gesture.position[0]), Math.abs(gesture.startPosition[1] - gesture.position[1])); 
+        if (gesture.duration >= SWIPE_DURATION &&
+          gesture.state == 'stop' &&
+          distance >= SWIPE_DISTANCE) {
+          console.log('FINGERS: ' + numFingers);
+
+          var isHorizontal = Math.abs(gesture.direction[0] > Math.abs(gesture.direction[1]));
+          if (isHorizontal) {
+            if (gesture.direction[0] > 0) { // Swiped Right
+              playNextTrack();
+            } else { // Swipe Left
+
+            }
+          } else {
+            if (gesture.direction[1] > 0) { // Swipe up
+
+            } else { // Swipe down
+
+            }
+          }
+
+          return true;
+        }
+        return false;
+        //  Math.abs(gessture.startPosition - gesture.)
+        // var isHorizontal = Math.abs(gesture.direction[0] > Math.abs(gesture.direction[1]));
+      }
+
+      function OnScreenTap(gesture, numFingers) {
+        if (numFingers == 1) {
+          console.log('screepTap');
+          return true;
+        }
+
+        return false;
+      }
+
+      function OnKeyTap(gesture) {
+        if (gesture.pointableIds.length == 1 &&
+          Math.abs(gesture.direction[0] < 0.2)) {
+          console.log('keyTap');
+          togglePauseTrack();
+          return true;
+        }
+
+        return false;
+      }
+
+      controller.connect();
+    </script>
+
 
   </body>
 </html>

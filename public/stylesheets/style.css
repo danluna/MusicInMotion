@@ -102,15 +102,11 @@ a {
 }
 
 #left {
-  overflow: scroll;
+  overflow: hidden;
 }
 
 #genreTitle {
   font-size: 16px;
-}
-
-#ambient {
-  border-top: 2px solid;
 }
 
 #genreList div:nth-child(even) {  
