@@ -12,15 +12,17 @@ $(document).ready(function() {
 });
 
 // Global Variables for keeping track of the song being played.
-var currentTracks;  
-var currentIndex;
+var curTracks;  
+var curIndex;
 var curSound;
+var curGenre;
 var genreList = [
 	"Ambient", "Classical", "Country", "Dance",
 	"Electronic", "Folk", "Hip Hop", "Jazz",
 	"Metal", "Pop", "Rap", "Rock", "Techno"
 ];
 
+var map = createTrackMap();
 
 function togglePauseTrack() {
   curSound.togglePause();
@@ -28,7 +30,7 @@ function togglePauseTrack() {
 
 // Plays stops the current track and plays the next track.
 function playNextTrack() {
-  if (currentIndex == currentTracks.length) {
+  if (curIndex == curTracks.length) {
     // TODO: change this
     alert("No more songs in current tracks");
   }
@@ -37,9 +39,9 @@ function playNextTrack() {
     curSound.destruct();
   }
 
-  var id = currentTracks[currentIndex].id;
-  var title = currentTracks[currentIndex].title;
-  currentIndex++;
+  var id = curTracks[curIndex].id;
+  var title = curTracks[curIndex].title;
+  curIndex++;
 
   console.log("ID: ".concat(id, " Title: ", title));
   SC.stream("/tracks/".concat(id), {onfinish: playNextTrack}, function(sound) {
@@ -53,10 +55,21 @@ function playNextTrack() {
 // TODO: add a structure keeping track of each genre's list so that they don't
 // repeat when we go back to the same genre.
 function playGenre(genre) {
+  if (curTracks != null) {
+    
+  }
+
   SC.get('/tracks', { genres: genre.toLowerCase(), stream: true }, function(tracks) {
-    currentTracks = tracks;
-    currentIndex = 0;
+    curTracks = tracks;
+    curIndex = 0;
     console.log(tracks);
     playNextTrack();
   });
-} 
+}
+
+function createTrackMap() {
+	var map	= {};
+	for (var i = 0; i < genreList.length; i++) {
+		map[genreList[i]] = {tracks: null, index: -1};
+	}
+}
