@@ -2,6 +2,8 @@ $(document).ready(function() {
 
 
   var csketch = $(".sketch");
+  csketch.css("width", "700px");
+  csketch.css("height", "450px");
   $("#soundArea").append(csketch);
 
   // initialize client with app credentials
