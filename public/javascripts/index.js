@@ -8,8 +8,6 @@ $(document).ready(function() {
     redirect_uri: 'http://127.0.0.1:3000/'
   });
 
-  playGenre("Metal");
-
   $("#soundPlayer").draggable({revert: "invalid"});
 
 
@@ -119,6 +117,10 @@ function playGenre(genre) {
   saveCurrentQueue();
   isPlaylist = false;
   curSet = genre;
+  
+  if (curSound != null) {
+    curSound.stop();
+  }
 
   curGenre = genre;
   if (genreTrackMap == null || genreTrackMap[genre] == null ||
@@ -238,18 +240,6 @@ function removeFromPlaylst(playlist) {
   playlist.splice(curIndex, 1);
 }
 
-/*
- * Genre calling methods, remove after using indices in html to call.
- */
-function playMetal() {
-  playGenre("Symphonic Metal");
-}
-
-function playClassical() {
-  playGenre("Progressive Metal");
-}
-
-
 // Global variables for keeping track of the genre bar
 var genreIndex = 0;
 var selectedBox;
@@ -306,5 +296,6 @@ function nextScrolledBar() {
 // Call to start playing a specific genre.
 // The correct genre identified by the genreIndex.
 function selectGenre() {
+  console.log("Select new genre ".concat(genreList[genreIndex + scrollHighlighter]));
   playGenre(genreList[genreIndex + scrollHighlighter]);
 }
