@@ -314,9 +314,9 @@ function genreScrollUp() {
 function nextScrolledBar() {
   $("#genreBox" + scrollHighlighter).css("border-color", "red");
   $("#genreBox" + scrollHighlighter + 1).css("border-color", "black");
-  $("#genreBox" - 1).css("border-color", "black");
+  $("#genreBox" + scrollHighlighter - 1).css("border-color", "black");
 
   $("#genreBox" + scrollHighlighter).css("color", "red");
   $("#genreBox" + scrollHighlighter + 1).css("color", "black");
-  $("#genreBox" - 1).css("color", "black");
+  $("#genreBox" + scrollHighlighter - 1).css("color", "black");
 }
