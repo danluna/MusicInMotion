@@ -101,7 +101,7 @@ a {
   padding-top: 30px;
 }
 
-#genreList, #left {
+#left {
   overflow: scroll;
 }
 
