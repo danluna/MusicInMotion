@@ -9,6 +9,8 @@ $(document).ready(function() {
 
   playGenre("metal");
 
+  $("#genreList div:nth-child(2)")
+
 });
 
 // Global Variables for keeping track of the song being played.
