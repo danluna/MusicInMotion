@@ -35,6 +35,7 @@ var curIndex;
 var curSound;
 var curGenre;
 var volume = 50;
+var curSet;
 var genreList = [
 	"Ambient", "Classical", "Country", "Dance",
 	"Electronic", "Folk", "Hip Hop", "Jazz",
@@ -65,6 +66,9 @@ function playNextTrack() {
   var imageURL = curTracks[curIndex].artwork_url;
   
   // TODO: Set default image if imageURL is null
+  if (imageURL != null) {
+    imageURL = imageURL.replace("large", "t300x300");
+  }
   $("#soundImage").attr("src", imageURL);
 
   curIndex++;
@@ -82,8 +86,12 @@ function playNextTrack() {
 // TODO: add a structure keeping track of each genre's list so that they don't
 // repeat when we go back to the same genre.
 function playGenre(genre) {
+  if (curSet == genre) {
+    return;
+  }
   saveCurrentQueue();
   isPlaylist = false;
+  curSet = genre;
 
   curGenre = genre;
   if (genreTrackMap == null || genreTrackMap[genre] == null ||
@@ -104,13 +112,18 @@ function playGenre(genre) {
 
 
 function playPlaylist(playlistName) {
+  if (curSet == playlistName) {
+    return;
+  }
+
   if (playlistMap[playlistName] == null) {
     alert("This playlist does not exist!");
   }
 
   saveCurrentQueue();
   isPlaylist = true;
- 
+  curSet = playlistName; 
+
   var plist = playlistMap[playlistName];
   var curTracks = plist.list;
   var curIndex = plist.index;
@@ -130,7 +143,7 @@ function saveCurrentQueue() {
     if(isPlaylist) {
       playlistMap = {tracks: curTracks, index: (curIndex + 1) % curTracks.length};
     } else {
-      genreTrackMap[curGenre] = {tracks: curTracks, index: curIndex + 1}; 
+      genreTrackMap[curGenre] = {tracks: curTracks, index: curIndex}; 
     }
   }
 }
