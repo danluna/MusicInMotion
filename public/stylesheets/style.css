@@ -16,8 +16,8 @@ a {
 #left {
   width: 200px;
   height: 600px;
-  background-color: black;
   float: left;
+  background-color: black;
 }
 
 #right {
@@ -33,11 +33,53 @@ a {
 #soundArea {
   height: 450px;
   width: 700px;
-  background-color: yellow;
+  background-color: green;
 }
 
 #playlistArea {
   height: 150px;
   width: 700px;
-  background-color: red;
+  background-color: gray;
 }
+
+#soundPlayer {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  margin: auto;
+  top: 50px;
+  position: relative;
+}
+
+#container, #soundPlayer {
+  border: 2px solid;
+  border-radius: 5px;
+}
+
+.playlist {
+  height: 100px;
+  width: 100px;
+  background-color: black;
+  top: 485px;
+  position: absolute;
+  background-color: white;
+}
+
+#p1 {
+  left: 470px;
+}
+
+#p2 {
+  left: 615px;
+}
+
+#p3 {
+  left: 760px;
+}
+
+#p4 {
+  left: 905px;
+}
+
+
+
