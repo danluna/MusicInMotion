@@ -196,14 +196,19 @@
           gesture.radius >= CIRCLE_RADIUS) {
             var clockwise = gesture.normal[2] <= 0;
             clockwise ? console.log('circle clockwise') : console.log('circle counter-clockwise');
+            var amountIncrease = Math.round(gesture.progress);
             if (clockwise) {
               // TURN UP VOLUME
-              raiseVolume();
-              console.log("volume up");
+              for (var i = 0; i < amountIncrease; i++) {
+                raiseVolume();
+                console.log("volume up");
+              }
             } else {
               // turn down volume
-              lowerVolume();
-              console.log("volume down");
+              for (var i = 0; i < amountIncrease; i++) {
+                lowerVolume();
+                console.log("volume down");
+              }
             }
             return true;
         }
