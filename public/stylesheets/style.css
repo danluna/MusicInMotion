@@ -51,7 +51,7 @@ a {
   position: relative;
 }
 
-#container, #soundPlayer {
+#container, #soundPlayer, .playlist {
   border: 2px solid;
   border-radius: 5px;
 }
@@ -60,9 +60,10 @@ a {
   height: 100px;
   width: 100px;
   background-color: black;
-  top: 485px;
+  top: 520px;
   position: absolute;
   background-color: white;
+  background-image: url("../images/yacht.jpg");
 }
 
 #p1 {
@@ -81,5 +82,12 @@ a {
   left: 905px;
 }
 
+#title {
+  text-align: center;
+}
 
+.soundImage {
+  width: 100%;
+  height: 100%;
+}
 
