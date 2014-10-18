@@ -28,6 +28,12 @@
           <button type="button" onclick="playClassical()">playClassical</button>
           <button type="button" onclick="raiseVolume()">raiseVolume</button>
           <button type="button" onclick="lowerVolume()">lowerVolume</button>
+          <span id="soundcloudLink">
+              <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fuser599065434&color=black_white&size=32" style="width: 32px; height: 32px;"></iframe> 
+          </span>
+          <div id="metadata">
+            <p id="song_title"></p><p id="user"></p>
+          </div>
           <div id="soundPlayer">
               <img id="soundImage" class="soundImage"/>
           </div>
@@ -119,7 +125,8 @@
           gesture.progress >= CIRCLE_PROGRESS &&
           gesture.radius >= CIRCLE_RADIUS) {
             var clockwise = gesture.normal[2] <= 0;
-            clockwise ? console.log('circle clockwise') : console.log('circle counter-clockwise');
+            clockwise ? raiseVolume() /*console.log('circle clockwise')*/ : 
+                        lowerVolume() /*console.log('circle counter-clockwise')*/;
             return true;
         }
         return false;

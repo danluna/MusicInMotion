@@ -13,7 +13,7 @@ $(document).ready(function() {
   $("#soundPlayer").draggable({revert: "invalid"});
 
 
-var genreBoxColor;
+  var genreBoxColor;
   $(".genreBox").on("mouseover", function() {
     genreBoxColor = $(this).css("background-color");
     $(this).css("background-color", "green");
@@ -102,7 +102,9 @@ function playNextTrack() {
   var id = curTracks[curIndex].id;
   var title = curTracks[curIndex].title;
   var imageURL = curTracks[curIndex].artwork_url;
-  
+ 
+  displayMetadata();
+ 
   // TODO: Set default image if imageURL is null
   if (imageURL != null) {
     imageURL = imageURL.replace("large", "t300x300");
@@ -147,7 +149,6 @@ function playGenre(genre) {
   }
 }
 
-
 function playPlaylist(playlistName) {
   if (curSet == playlistName) {
     return;
@@ -183,6 +184,13 @@ function saveCurrentQueue() {
       genreTrackMap[curGenre] = {tracks: curTracks, index: curIndex}; 
     }
   }
+}
+
+function displayMetadata() {
+  var user = curTracks[curIndex].user.username;
+  var title = curTracks[curIndex].title;
+  $("#song_title").html(title);
+  $("#user").html(user);
 }
 
 
@@ -256,7 +264,7 @@ function playClassical() {
 function genreScrollDown() {
 
   // Check if highlighter at end of list
-  if(scrollHighlighter == 5)
+  if(scrollHighlighter == 5) {
     $("#genreBox0").html(genreList[scrollHighlighter]);
     $("#genreBox1").html();
     $("#genreBox2").html();
@@ -265,7 +273,7 @@ function genreScrollDown() {
     $("#genreBox5").html();
   }
 }
-
+/*
 function nextScrolledBar(int index) {
 
-}
+}*/
