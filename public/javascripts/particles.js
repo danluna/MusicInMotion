@@ -240,6 +240,13 @@ Demo
 
 gl.setup = function() {
 
+    // Add Stats.js so we can monitor the FPS
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.right = '20px';
+    stats.domElement.style.top = '50px';
+    document.body.appendChild( stats.domElement );
+
     loadShaders( function() {
 
         // Set persistant states
