@@ -51,7 +51,6 @@ function togglePauseTrack() {
 
 function playPrevTrack() {
   if (curIndex <= 0) {
-    alert("No previous songs in the track list.");
     return;
   }   
 
@@ -84,8 +83,7 @@ function playPrevTrack() {
 // Plays stops the current track and plays the next track.
 function playNextTrack() {
   if (curIndex == curTracks.length) {
-    // TODO: change this
-    alert("No more songs in the track queue");
+    return;
   }
   curIndex++;
   
@@ -93,6 +91,8 @@ function playNextTrack() {
     curSound.stop();
   }
 
+
+  console.log(curTracks);
   var id = curTracks[curIndex].id;
   var title = curTracks[curIndex].title;
   var imageURL = curTracks[curIndex].artwork_url;
@@ -146,14 +146,14 @@ function playGenre(genre) {
 }
 
 function playPlaylist(playlistName) {
-  if (curSet == playlistName) {
+  if (curSet == playlistName) {  
     return;
   }
   
   console.log(playlistName);
 
   if (playlistMap[playlistName] == null) {
-    alert("This playlist does not exist!");
+    return;
   }
 
   saveCurrentQueue();
@@ -161,11 +161,12 @@ function playPlaylist(playlistName) {
   curSet = playlistName; 
 
   var plist = playlistMap[playlistName];
-  var curTracks = plist.list;
-  var curIndex = plist.index;
+  console.log(plist);
+  curTracks = plist.list;
+  curIndex = plist.index;
   
   if (curTracks.length == 0) {
-    alert("No tracks in this playlist");
+    return;
   } else {
     // Make sure the index is in a valid range.
     curIndex = (curIndex % curTracks.length) - 1;
@@ -177,7 +178,7 @@ function playPlaylist(playlistName) {
 function saveCurrentQueue() {
   if (curTracks != null) {
     if(isPlaylist) {
-      playlistMap = {tracks: curTracks, index: curIndex % curTracks.length};
+      playlistMap[curSet] = {tracks: curTracks, index: curIndex % curTracks.length};
     } else {
       genreTrackMap[curGenre] = {tracks: curTracks, index: curIndex}; 
     }
@@ -202,6 +203,9 @@ function createGenreTrackMap() {
 
 // Volume stuff.
 function raiseVolume() {
+  if (curSound == null) {
+    return;
+  }
   if (volume > 90) {
     volume = 100;
   } else {
@@ -211,6 +215,9 @@ function raiseVolume() {
 }
 
 function lowerVolume() {
+  if (curSound == null) {
+    return;
+  }
   if (volume < 10) {
     volume = 0;
   } else {
@@ -243,7 +250,7 @@ function createPlaylistMap() {
 
 function createPlaylist(name) {
   if (playlistMap[name] != null) {
-    alert("This playlist already exists!");
+    return;
   } else {
     playlistMap[name] = {list: [], index: -1};
   }
@@ -253,12 +260,27 @@ function deletePlaylist(name) {
   delete playlistMap[name];
 }
 
+function pushPlaylist() {
+  if (selectionGenre) {
+    return;
+  } 
+  console.log(playlistMap);
+  addToPlaylist(playlistMap[playlistIndices[playlistIndex]].list);
+}
+
+function popPlaylist() {
+  if (selectionGenre) {
+    return;
+  }
+  removeFromPlaylist(playlistMap[playlistIndices[playlistIndex]].list);
+}
+
 function addToPlaylist(playlist) {
   playlist.push(curTracks[curIndex]);
 }
 
 function removeFromPlaylist(playlist) {
-  playlist.splice(curIndex, 1);
+  playlist.splice(playlist.length - 1, 1);
 }
 
 

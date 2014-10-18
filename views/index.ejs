@@ -221,10 +221,11 @@
             }
           } else {
             if (gesture.direction[1] > 0) { // Swipe up
-              // UNDO MOST RECENT SONG ADDED OUT
+              console.log("pop playlist");
+              popPlaylist();
             } else { // Swipe down
-              // ADD TO HIGHLIGHTED PLAYLIST
-
+              console.log("push playlist");
+              pushPlaylist();
             }
           }
           return true;
@@ -236,7 +237,7 @@
         if (numFingers == 1) {
           // TOGGLE PLAYLIST/GENRE LIST
           console.log('screepTap');
-          toggleSelection();
+          //toggleSelection();
           return true;
         }
         return false;
