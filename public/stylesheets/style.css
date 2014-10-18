@@ -11,13 +11,14 @@ a {
   margin: 0 auto;
   height: 600px;
   text-align: center;
+  background-color: white;
 }
 
 #left {
   width: 200px;
   height: 600px;
   float: left;
-  background-color: black;
+  font-weight: bold;
 }
 
 #right {
@@ -33,13 +34,12 @@ a {
 #soundArea {
   height: 450px;
   width: 700px;
-  background-color: green;
 }
 
 #playlistArea {
   height: 150px;
   width: 700px;
-  background-color: gray;
+  background-color: black;
 }
 
 #soundPlayer {
@@ -89,5 +89,38 @@ a {
 .soundImage {
   width: 100%;
   height: 100%;
+}
+
+.genreBox {
+  height: 70px;
+  width: 198px;
+  background-color: #99D6FF;
+  font-size: 18px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+  padding-top: 30px;
+}
+
+#genreList, #left {
+  overflow: scroll;
+}
+
+#genreTitle {
+  font-size: 16px;
+}
+
+#ambient {
+  border-top: 2px solid;
+}
+
+#genreList div:nth-child(even) {  
+  background-color: #0099CC;
+}
+
+#genreTitle {
+  padding-top: 10px;
+  height: 30px;
+  width: 198px;
+  border-right: 2px solid;
 }
 

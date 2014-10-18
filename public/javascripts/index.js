@@ -9,6 +9,24 @@ $(document).ready(function() {
 
   playGenre("Metal");
 
+  $("#soundPlayer").draggable({revert: "invalid"});
+
+
+var genreBoxColor;
+  $(".genreBox").on("mouseover", function() {
+    genreBoxColor = $(this).css("background-color");
+    $(this).css("background-color", "green");
+    $(this).css('cursor', 'pointer');
+  });
+
+  $(".genreBox").on("mouseout", function() {
+    $(this).css("background-color", genreBoxColor);
+  });
+
+  $("#soundPlayer").on("mouseover", function() {
+    $(this).css('cursor', 'pointer');
+  });
+
 });
 
 // Global Variables for keeping track of the song being played.
