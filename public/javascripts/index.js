@@ -10,7 +10,6 @@ $(document).ready(function() {
 
   $("#soundPlayer").draggable({revert: "invalid"});
 
-
   var genreBoxColor;
 
   $(".genreBox").on("mouseout", function() {
@@ -18,6 +17,10 @@ $(document).ready(function() {
   });
   
   $("#genreBox" + scrollHighlighter).css("color", "red");
+  $("#genreBox" + scrollHighlighter).css("border-color", "#F0F0F0");
+  
+  $("#genreList").css("opacity", "1.0");
+  $("#playlistArea").css("opacity", "0.4");
 });
 
 
@@ -29,6 +32,7 @@ var curSound;
 var curGenre;
 var volume = 50;
 var curSet;
+var selectionGenre = true;
 var genreList = [
 	"Ambient", "Classical", "Country", "Dance",
 	"Electronic", "Folk", "Hip Hop", "Jazz",
@@ -40,7 +44,9 @@ var playlistMap = createPlaylistMap();
 var isPlaylist = false;
 
 function togglePauseTrack() {
-  curSound.togglePause();
+  if (curSound != null) {
+    curSound.togglePause();
+  }
 }
 
 function playPrevTrack() {
@@ -143,6 +149,8 @@ function playPlaylist(playlistName) {
   if (curSet == playlistName) {
     return;
   }
+  
+  console.log(playlistName);
 
   if (playlistMap[playlistName] == null) {
     alert("This playlist does not exist!");
@@ -215,8 +223,21 @@ function lowerVolume() {
 // Playlist stuff
 function createPlaylistMap() {
   var playlists = {};
+  playlistIndices = [];
   playlists["My Playlist"] = {list: [], index: -1};
+  playlistIndices[0] = "My Playlist";
   playlists["My Mom's Playlist"] = {list: [], index: -1};
+  playlistIndices[1] = "My Mom's Playlist";
+  playlists["My Enemy's Playlist"] = {list: [], index: -1};
+  playlistIndices[2] = "My Enemy's Playlist";
+  playlists["Your Playlist"] = {list: [], index: -1};
+  playlistIndices[3] = "Your Playlist";
+  
+  // Initialize playlist names  
+  $("#p1").html(playlistIndices[0]);
+  $("#p2").html(playlistIndices[1]);
+  $("#p3").html(playlistIndices[2]);
+  $("#p4").html(playlistIndices[3]);
   return playlists;
 }
 
@@ -236,14 +257,60 @@ function addToPlaylist(playlist) {
   playlist.push(curTracks[curIndex]);
 }
 
-function removeFromPlaylst(playlist) {
+function removeFromPlaylist(playlist) {
   playlist.splice(curIndex, 1);
+}
+
+
+function scrollUp() {
+  if (selectionGenre) {
+    genreScrollUp();
+  } else {
+    playlistScrollUp();
+  }
+}
+
+function scrollDown() {
+  if (selectionGenre) {
+    genreScrollDown();
+  } else {
+    playlistScrollDown();
+  }
 }
 
 // Global variables for keeping track of the genre bar
 var genreIndex = 0;
 var selectedBox;
 var scrollHighlighter = 0;
+var playlistIndex = 0;
+
+function playlistScrollUp() {
+  // Check if highlighter at end of list
+  if(playlistIndex < 3) {
+    playlistIndex++;
+    nextScrolledPlaylist();
+  }
+}
+
+function playlistScrollDown() {
+  // Check if highlighter at end of list
+  if(playlistIndex > 0) {
+    playlistIndex--;
+    nextScrolledPlaylist();
+  }
+}
+
+function nextScrolledPlaylist() {
+  $("#p" + (playlistIndex + 2)).css("border-color", "#F0F0F0");
+  $("#p" + (playlistIndex)).css("border-color", "#F0F0F0");
+
+  $("#p" + (playlistIndex + 1)).css("border-color", "red");
+  
+  $("#p" + (playlistIndex + 2)).css("color", "#F0F0F0");
+  $("#p" + (playlistIndex)).css("color", "#F0F0F0");
+
+  $("#p" + (playlistIndex + 1)).css("color", "red");
+}
 
 function genreScrollDown() {
 
@@ -289,8 +356,17 @@ function nextScrolledBar() {
   $("#genreBox" + (scrollHighlighter - 1)).css("border-color", "#F0F0F0");
 
   $("#genreBox" + scrollHighlighter).css("color", "red");
+  $("#genreBox" + scrollHighlighter).css("border-color", "#F0F0F0");
   $("#genreBox" + (scrollHighlighter + 1)).css("color", "#F0F0F0");
   $("#genreBox" + (scrollHighlighter - 1)).css("color", "#F0F0F0");
+}
+
+function selectGroup() {
+  if (selectionGenre) {
+    selectGenre();
+  } else {
+    selectPlaylist();
+  }
 }
 
 // Call to start playing a specific genre.
@@ -298,4 +374,31 @@ function nextScrolledBar() {
 function selectGenre() {
   console.log("Select new genre ".concat(genreList[genreIndex + scrollHighlighter]));
   playGenre(genreList[genreIndex + scrollHighlighter]);
+}
+
+function selectPlaylist() {
+  console.log("Select playlist ".concat(playlistIndex));
+  playPlaylist(playlistIndices[playlistIndex]);  
+}
+
+function toggleSelection() {
+  selectionGenre = !selectionGenre;
+  if (selectionGenre) {
+    $("#genreList").css("opacity", "1.0");
+    $("#playlistArea").css("opacity", "0.4");
+    
+    $("#p".concat((playlistIndex + 1))).css("border-color", "#F0F0F0");
+    $("#p".concat((playlistIndex + 1))).css("color", "#F0F0F0");
+    
+    $("#genreBox" + scrollHighlighter).css("color", "red");
+    $("#genreBox" + scrollHighlighter).css("border-color", "#F0F0F0");
+  } else {
+    $("#genreList").css("opacity", "0.4");
+    $("#playlistArea").css("opacity", "1.0");
+    console.log(playlistIndex); 
+    $("#p".concat(playlistIndex + 1)).css("border-color", "red");
+    $("#p".concat(playlistIndex + 1)).css("color", "red");
+    
+    $("#genreBox" + scrollHighlighter).css("color", "#F0F0F0");
+  } 
 }
