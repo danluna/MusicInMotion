@@ -1,9 +1,11 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #F0F0F0;
+  background-color: #303030;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  color: #F0F0F0;
 }
 
 #container {
@@ -11,7 +13,7 @@ a {
   margin: 0 auto;
   height: 600px;
   text-align: center;
-  background-color: white;
+  color: inherit;
 }
 
 #left {
@@ -19,54 +21,74 @@ a {
   height: 600px;
   float: left;
   font-weight: bold;
+  color: inherit;
 }
 
 #right {
   width: 700px;
   height: 600px;
   float: right;
+  color: inherit;
 }
 
 #title {
   text-align: center;
+  color: inherit;
 }
 
 #soundArea {
   height: 450px;
   width: 700px;
+  position: relative;
 }
 
 #playlistArea {
   height: 150px;
-  width: 700px;
-  background-color: black;
+  width: 680px;
+  padding: 0px 10px 0px 10px;
+  background-color: #303030;
 }
 
 #soundPlayer {
   width: 200px;
   height: 200px;
-  background-color: white;
-  margin: auto;
-  top: 50px;
-  position: relative;
+  background-color: #303030;
+  left: 0px;
+  top: 250px;
+  z-index: 100;
+  position: absolute;
+  opacity: 0.7;
 }
 
-#container, #soundPlayer, .playlist {
+#metadata {
+  width: 600px;
+  height: 60px;
+  top: 380px;
+  position: absolute;
+  padding-left: 5px;
+  z-index: 110;
+  text-align: left;
+}
+
+#container, .playlist {
   border: 2px solid;
   border-radius: 5px;
 }
 
 #soundcloudLink {
-  float: right;
+  left: 5px;
+  top: -20px;
+  position:absolute;
 }
 
 .playlist {
   height: 100px;
   width: 100px;
-  background-color: black;
-  top: 520px;
-  position: absolute;
-  background-color: white;
+  background-color: #303030;
+  top: 20px;
+  margin: 20px 33px 20px 33px;
+  background-color: #F0F0F0;
+  float: left;
   background-image: url("../images/yacht.jpg");
 }
 
@@ -124,3 +146,6 @@ a {
   border-right: 2px solid;
 }
 
+button {
+  display: none;
+}
