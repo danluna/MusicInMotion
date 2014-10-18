@@ -15,6 +15,11 @@ $(document).ready(function() {
 var currentTracks;  
 var currentIndex;
 var curSound;
+var genreList = [
+	"Ambient", "Classical", "Country", "Dance",
+	"Electronic", "Folk", "Hip Hop", "Jazz",
+	"Metal", "Pop", "Rap", "Rock", "Techno"
+];
 
 
 function togglePauseTrack() {
@@ -48,7 +53,7 @@ function playNextTrack() {
 // TODO: add a structure keeping track of each genre's list so that they don't
 // repeat when we go back to the same genre.
 function playGenre(genre) {
-  SC.get('/tracks', { genres: genre, stream: true }, function(tracks) {
+  SC.get('/tracks', { genres: genre.toLowerCase(), stream: true }, function(tracks) {
     currentTracks = tracks;
     currentIndex = 0;
     console.log(tracks);
