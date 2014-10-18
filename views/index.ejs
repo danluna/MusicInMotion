@@ -128,7 +128,7 @@
 
             if (timeInScroll >= SCROLL_TIME) {
               seenGesture = true;
-              console.log('scroll direction: ' + scrollDirection);
+              //console.log('scroll direction: ' + scrollDirection);
               switch(scrollDirection) {
                 case 0:
                   // left
@@ -139,9 +139,11 @@
                 case 2:
                   // up
                   genreScrollUp();
+                  console.log("scrolling up");
                   break;
                 case 3:
                   // down
+                  console.log("scroll down");
                   genreScrollDown();
                   break;
               }

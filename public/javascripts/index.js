@@ -28,6 +28,10 @@ $(document).ready(function() {
     $(this).css('cursor', 'pointer');
   });
 
+  $("#genreBox0").css("border-color", "red");
+  $("#genreBox" + scrollHighlighter).css("color", "red");
+
+
 });
 
 
@@ -281,9 +285,9 @@ function genreScrollDown() {
   else { // Scroll was not at last index
     scrollHighlighter++;
     genreIndex++;
+    nextScrolledBar();
   }
 
-  nextScrolledBar();
 
 }
 
@@ -318,13 +322,13 @@ function genreScrollUp() {
 
 // Highlight the correct genreBox
 function nextScrolledBar() {
-  $("#genreBox" + scrollHighlighter).css("border-color", "red");
-  $("#genreBox" + scrollHighlighter + 1).css("border-color", "black");
-  $("#genreBox" + scrollHighlighter - 1).css("border-color", "black");
+  $("#genreBox" + scrollHighlighter).css("background-color", "green");
+  $("#genreBox" + (scrollHighlighter + 1)).css("border-color", "black");
+  $("#genreBox" + (scrollHighlighter - 1)).css("border-color", "black");
 
   $("#genreBox" + scrollHighlighter).css("color", "red");
-  $("#genreBox" + scrollHighlighter + 1).css("color", "black");
-  $("#genreBox" + scrollHighlighter - 1).css("color", "black");
+  $("#genreBox" + (scrollHighlighter + 1)).css("color", "black");
+  $("#genreBox" + (scrollHighlighter - 1)).css("color", "black");
 }
 
 // Call to start playing a specific genre.
