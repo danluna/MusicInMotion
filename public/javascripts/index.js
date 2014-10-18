@@ -173,7 +173,7 @@ function playPlaylist(playlistName) {
 function saveCurrentQueue() {
   if (curTracks != null) {
     if(isPlaylist) {
-      playlistMap = {tracks: curTracks, index: (curIndex + 1) % curTracks.length};
+      playlistMap = {tracks: curTracks, index: curIndex % curTracks.length};
     } else {
       genreTrackMap[curGenre] = {tracks: curTracks, index: curIndex}; 
     }
