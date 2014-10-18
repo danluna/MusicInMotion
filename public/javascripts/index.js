@@ -55,15 +55,16 @@ function togglePauseTrack() {
   curSound.togglePause();
 }
 
-// Plays stops the current track and plays the next track.
-function playNextTrack() {
-  if (curIndex == curTracks.length) {
-    // TODO: change this
-    alert("No more songs in the track queue");
-  }
+function playPrevTrack() {
+  if (curIndex <= 0) {
+    alert("No previous songs in the track list.");
+    return;
+  }   
 
+  curIndex--;
+ 
   if (curSound != null) {
-    curSound.destruct();
+    curSound.stop();
   }
 
   var id = curTracks[curIndex].id;
@@ -76,7 +77,38 @@ function playNextTrack() {
   }
   $("#soundImage").attr("src", imageURL);
 
+
+  console.log("ID: ".concat(id, " Title: ", title));
+  SC.stream("/tracks/".concat(id), {onfinish: playNextTrack}, function(sound) {
+    console.log(sound);
+    curSound = sound;
+    sound.setVolume(volume);
+    sound.play();
+  });
+}
+
+// Plays stops the current track and plays the next track.
+function playNextTrack() {
+  if (curIndex == curTracks.length) {
+    // TODO: change this
+    alert("No more songs in the track queue");
+  }
   curIndex++;
+  
+  if (curSound != null) {
+    curSound.stop();
+  }
+
+  var id = curTracks[curIndex].id;
+  var title = curTracks[curIndex].title;
+  var imageURL = curTracks[curIndex].artwork_url;
+  
+  // TODO: Set default image if imageURL is null
+  if (imageURL != null) {
+    imageURL = imageURL.replace("large", "t300x300");
+  }
+  $("#soundImage").attr("src", imageURL);
+
 
   console.log("ID: ".concat(id, " Title: ", title));
   SC.stream("/tracks/".concat(id), {onfinish: playNextTrack}, function(sound) {
@@ -103,7 +135,7 @@ function playGenre(genre) {
       genreTrackMap[genre].tracks == null || genreTrackMap[genre].index >= 50) {
     SC.get('/tracks', { genres: genre.toLowerCase(), stream: true }, function(tracks) {
       curTracks = tracks;
-      curIndex = 0;
+      curIndex = -1;
     
       console.log(tracks);
       playNextTrack();
@@ -137,7 +169,7 @@ function playPlaylist(playlistName) {
     alert("No tracks in this playlist");
   } else {
     // Make sure the index is in a valid range.
-    curIndex = curIndex % curTracks.length;
+    curIndex = (curIndex % curTracks.length) - 1;
 
     playNextTrack();
   }
@@ -214,11 +246,11 @@ function removeFromPlaylst(playlist) {
  * Genre calling methods, remove after using indices in html to call.
  */
 function playMetal() {
-  playGenre("Metal");
+  playGenre("Symphonic Metal");
 }
 
 function playClassical() {
-  playGenre("Classical");
+  playGenre("Progressive Metal");
 }
 
 function genreScrollDown() {
