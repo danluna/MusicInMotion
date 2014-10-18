@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('soundcloud', { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
 
 /* GET development callback.html for SoundCloud */
