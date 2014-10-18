@@ -137,13 +137,13 @@
                   break;
                 case 2:
                   // up
-                  genreScrollUp();
+                  scrollUp();
                   console.log("scrolling up");
                   break;
                 case 3:
                   // down
                   console.log("scroll down");
-                  genreScrollDown();
+                  scrollDown();
                   break;
               }
               scrollDirection = -1;
@@ -152,7 +152,7 @@
 
           if (frame.hands.length == 1 && frame.fingers.length == 0) {
             // TODO: also select playlist
-            selectGenre();
+            selectGroup();
           }
 
           for (var i = 0; i < frame.gestures.length; i++) {
@@ -239,6 +239,7 @@
         if (numFingers == 1) {
           // TOGGLE PLAYLIST/GENRE LIST
           console.log('screepTap');
+          toggleSelection();
           return true;
         }
         return false;
