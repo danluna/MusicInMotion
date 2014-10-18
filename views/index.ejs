@@ -156,6 +156,11 @@
             }
           }
 
+          if (frame.hands.length == 1 && frame.fingers.length == 0) {
+            // TODO: also select playlist
+            selectGenre();
+          }
+
           for (var i = 0; i < frame.gestures.length; i++) {
             var gesture = frame.gestures[i];
             var type = gesture.type;
