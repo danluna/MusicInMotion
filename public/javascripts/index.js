@@ -13,7 +13,7 @@ $(document).ready(function() {
   $("#soundPlayer").draggable({revert: "invalid"});
 
 
-var genreBoxColor;
+  var genreBoxColor;
   $(".genreBox").on("mouseover", function() {
     genreBoxColor = $(this).css("background-color");
     $(this).css("background-color", "green");
@@ -31,8 +31,6 @@ var genreBoxColor;
 });
 
 
-// Global variables for keeping track of the genre bar
-var genreIndex = 0;
 
 // Global Variables for keeping track of the song being played.
 var curTracks;  
@@ -253,19 +251,72 @@ function playClassical() {
   playGenre("Progressive Metal");
 }
 
+
+// Global variables for keeping track of the genre bar
+var genreIndex = 0;
+var selectedBox;
+var scrollHighlighter = 0;
+
 function genreScrollDown() {
 
   // Check if highlighter at end of list
-  if(scrollHighlighter == 5)
-    $("#genreBox0").html(genreList[scrollHighlighter]);
-    $("#genreBox1").html();
-    $("#genreBox2").html();
-    $("#genreBox3").html();
-    $("#genreBox4").html();
-    $("#genreBox5").html();
+  if(scrollHighlighter == 5 && genreIndex == 12) {
+    // At very bottom, no need to scroll down
+  }
+  if(scrollHighlighter == 5) {
+    genreIndex++;
+    $("#genreBox0").html(genreList[genreIndex]);
+    $("#genreBox1").html(genreList[genreIndex + 1]);
+    $("#genreBox2").html(genreList[genreIndex + 2]);
+    $("#genreBox3").html(genreList[genreIndex + 3]);
+    $("#genreBox4").html(genreList[genreIndex + 4]);
+    $("#genreBox5").html(genreList[genreIndex + 5]);
+  }
+  else { // Scroll was not at last index
+    scrollHighlighter++;
+    genreIndex++;
+  }
+
+  nextScrolledBar();
+
+}
+
+function genreScrollUp() {
+  if(genreIndex == 0 && scrollHighlighter == 0) {
+    // No need to do anything
+  }
+  else if(genreIndex == 0) {
+    scrollHighlighter--;
+    nextScrolledBar();
+  }
+  else if(scrollHighlighter == 0) {
+    genreIndex--;
+    $("#genreBox0").html(genreList[genreIndex]);
+    $("#genreBox1").html(genreList[genreIndex + 1]);
+    $("#genreBox2").html(genreList[genreIndex + 2]);
+    $("#genreBox3").html(genreList[genreIndex + 3]);
+    $("#genreBox4").html(genreList[genreIndex + 4]);
+    $("#genreBox5").html(genreList[genreIndex + 5]);
+  }
+  else {
+    genreIndex--;
+    scrollHighlighter--;
+    $("#genreBox0").html(genreList[genreIndex]);
+    $("#genreBox1").html(genreList[genreIndex + 1]);
+    $("#genreBox2").html(genreList[genreIndex + 2]);
+    $("#genreBox3").html(genreList[genreIndex + 3]);
+    $("#genreBox4").html(genreList[genreIndex + 4]);
+    $("#genreBox5").html(genreList[genreIndex + 5]);
   }
 }
 
-function nextScrolledBar(int index) {
+// Highlight the correct genreBox
+function nextScrolledBar() {
+  $("#genreBox" + scrollHighlighter).css("border-color", "red");
+  $("#genreBox" + scrollHighlighter + 1).css("border-color", "black");
+  $("#genreBox" - 1).css("border-color", "black");
 
+  $("#genreBox" + scrollHighlighter).css("color", "red");
+  $("#genreBox" + scrollHighlighter + 1).css("color", "black");
+  $("#genreBox" - 1).css("color", "black");
 }
