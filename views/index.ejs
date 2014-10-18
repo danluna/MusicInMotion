@@ -5,21 +5,33 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+    <div id="title">
+      <p>Music In Motion</p>
+    </div>
     <div id="container">
-      <p id="title">Music In Motion</p>
       <div id="left">
         <p>Genres</p>
       </div>
       <div id="right">
 
         <div id="soundArea">
-          <div></div>
+          <div id="soundPlayer">
+              <img class="soundImage" src="/images/yacht.jpg"/>
+          </div>
         </div>
 
         <div id="playlistArea">
+          <div class="playlist" id="p1"><p>playlist 1</p></div>
+          <div class="playlist" id="p2"><p>playlist 2</p></div>
+          <div class="playlist" id="p3"><p>playlist 3</p></div>
+          <div class="playlist" id="p4"><p>playlist 4</p></div>
         </div>
 
       </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
   </body>
 </html>
