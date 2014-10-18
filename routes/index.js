@@ -6,4 +6,9 @@ router.get('/', function(req, res) {
   res.render('soundcloud', { title: 'Express' });
 });
 
+/* GET development callback.html for SoundCloud */
+router.get('/callback.html', function(req, res) {
+  res.render('callback');
+});
+
 module.exports = router;
