@@ -65,7 +65,7 @@ function playNextTrack() {
   var imageURL = curTracks[curIndex].artwork_url;
   
   // TODO: Set default image if imageURL is null
-  $("#artImage").attr("src", imageURL);
+  $("#soundImage").attr("src", imageURL);
 
   curIndex++;
 
