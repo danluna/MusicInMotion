@@ -128,7 +128,7 @@ function loadShaders( callback ) {
 
         var req = new XMLHttpRequest();
         req.onload = loadHandler( name, req );
-        req.open( 'get', 'glsl/' + name + '.glsl', true );
+        req.open( 'get', 'javascripts/glsl/' + name + '.glsl', true );
         req.send();
     }
 }
