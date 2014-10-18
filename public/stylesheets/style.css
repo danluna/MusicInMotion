@@ -43,8 +43,8 @@ a {
 }
 
 #soundPlayer {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   background-color: white;
   margin: auto;
   top: 50px;
@@ -102,15 +102,11 @@ a {
 }
 
 #left {
-  overflow: scroll;
+  overflow: hidden;
 }
 
 #genreTitle {
   font-size: 16px;
-}
-
-#ambient {
-  border-top: 2px solid;
 }
 
 #genreList div:nth-child(even) {  

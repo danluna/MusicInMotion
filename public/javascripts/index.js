@@ -1,5 +1,6 @@
 $(document).ready(function() { 
 
+
   // initialize client with app credentials
   SC.initialize({
     client_id: '4a4e35aed5c587e1c7296ddbd13e8926',
@@ -28,6 +29,10 @@ var genreBoxColor;
   });
 
 });
+
+
+// Global variables for keeping track of the genre bar
+var genreIndex = 0;
 
 // Global Variables for keeping track of the song being played.
 var curTracks;  
@@ -246,4 +251,21 @@ function playMetal() {
 
 function playClassical() {
   playGenre("Progressive Metal");
+}
+
+function genreScrollDown() {
+
+  // Check if highlighter at end of list
+  if(scrollHighlighter == 5)
+    $("#genreBox0").html(genreList[scrollHighlighter]);
+    $("#genreBox1").html();
+    $("#genreBox2").html();
+    $("#genreBox3").html();
+    $("#genreBox4").html();
+    $("#genreBox5").html();
+  }
+}
+
+function nextScrolledBar(int index) {
+
 }
