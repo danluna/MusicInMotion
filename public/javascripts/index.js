@@ -120,8 +120,6 @@ function playNextTrack() {
 }
 
 // Gets a set of tracks from a genre and starts playing them.
-// TODO: add a structure keeping track of each genre's list so that they don't
-// repeat when we go back to the same genre.
 function playGenre(genre) {
   if (curSet == genre) {
     return;
@@ -327,4 +325,10 @@ function nextScrolledBar() {
   $("#genreBox" + scrollHighlighter).css("color", "red");
   $("#genreBox" + scrollHighlighter + 1).css("color", "black");
   $("#genreBox" + scrollHighlighter - 1).css("color", "black");
+}
+
+// Call to start playing a specific genre.
+// The correct genre identified by the genreIndex.
+function selectGenre() {
+  playGenre(genreList[genreIndex]);
 }
