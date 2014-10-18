@@ -7,7 +7,7 @@ $(document).ready(function() {
     redirect_uri: 'http://127.0.0.1:3000/'
   });
 
-  playGenre("metal");
+  playGenre("Metal");
 
   $("#genreList div:nth-child(2)")
 
@@ -58,15 +58,24 @@ function playNextTrack() {
 // repeat when we go back to the same genre.
 function playGenre(genre) {
   if (curTracks != null) {
-    
+    map[curGenre] = {tracks: curTracks, index: curIndex + 1}; 
   }
 
-  SC.get('/tracks', { genres: genre.toLowerCase(), stream: true }, function(tracks) {
-    curTracks = tracks;
-    curIndex = 0;
-    console.log(tracks);
+  curGenre = genre;
+  if (map == null || map[genre] == null ||
+      map[genre].tracks == null || map[genre].index >= 50) {
+    SC.get('/tracks', { genres: genre.toLowerCase(), stream: true }, function(tracks) {
+      curTracks = tracks;
+      curIndex = 0;
+    
+      console.log(tracks);
+      playNextTrack();
+    });
+  } else {
+    curTracks = map[genre].tracks;
+    curIndex = map[genre].index;
     playNextTrack();
-  });
+  }
 }
 
 function createTrackMap() {
@@ -74,4 +83,13 @@ function createTrackMap() {
 	for (var i = 0; i < genreList.length; i++) {
 		map[genreList[i]] = {tracks: null, index: -1};
 	}
+  return map;
+}
+
+function playMetal() {
+  playGenre("Metal");
+}
+
+function playClassical() {
+  playGenre("Classical");
 }
