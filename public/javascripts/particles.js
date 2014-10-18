@@ -128,7 +128,7 @@ function loadShaders( callback ) {
 
         var req = new XMLHttpRequest();
         req.onload = loadHandler( name, req );
-        req.open( 'get', 'glsl/' + name + '.glsl', true );
+        req.open( 'get', 'javascripts/glsl/' + name + '.glsl', true );
         req.send();
     }
 }
@@ -242,9 +242,6 @@ gl.setup = function() {
 
     // Add Stats.js so we can monitor the FPS
     stats = new Stats();
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.right = '20px';
-    stats.domElement.style.top = '50px';
     document.body.appendChild( stats.domElement );
 
     loadShaders( function() {
@@ -350,7 +347,7 @@ gl.setup = function() {
 
         // Load the particle asset into the texture
         var particleTextureImage = new Image();
-        particleTextureImage.src = 'img/particle.png';
+        particleTextureImage.src = 'images/particle.png';
         particleTextureImage.onload = function() {
 
             // Activate the correct texture unit and bind the texture to it

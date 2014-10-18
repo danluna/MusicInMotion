@@ -1,6 +1,11 @@
 $(document).ready(function() { 
 
 
+  var csketch = $(".sketch");
+  csketch.css("width", "700px");
+  csketch.css("height", "450px");
+  $("#soundArea").append(csketch);
+
   // initialize client with app credentials
   SC.initialize({
     client_id: '4a4e35aed5c587e1c7296ddbd13e8926',

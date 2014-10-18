@@ -121,7 +121,7 @@ h1 {
 .genreBox {
   height: 70px;
   width: 198px;
-  background-color: #99D6FF;
+  background-color: #91ACE3;
   font-size: 18px;
   border-bottom: 2px solid;
   border-right: 2px solid;
@@ -138,7 +138,7 @@ h1 {
 }
 
 #genreList div:nth-child(even) {  
-  background-color: #0099CC;
+  background-color: #4775D1;
 }
 
 #genreTitle {

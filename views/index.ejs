@@ -21,14 +21,10 @@
         </div>
       </div>
       <div id="right">
-
         <div id="soundArea">
-          <button type="button" onclick="togglePauseTrack()">Play/Pause</button>
-          <button type="button" onclick="playNextTrack()">Next</button>
-          <button type="button" onclick="playMetal()">playMetal</button>
-          <button type="button" onclick="playClassical()">playClassical</button>
-          <button type="button" onclick="raiseVolume()">raiseVolume</button>
-          <button type="button" onclick="lowerVolume()">lowerVolume</button>
+          <div class="cb toggle-fbo">
+            <input class="toggle" type="checkbox"/>
+          </div>
           <div id="metadata">
             <span id="soundcloudLink">
               <iframe allowtransparency="true" scrolling="no" frameborder="no" src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Fuser599065434&color=black_white&size=32" style="width: 32px; height: 32px;"></iframe> 
@@ -54,10 +50,12 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://connect.soundcloud.com/sdk.js"></script>
-    <script src="/javascripts/index.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="https://js.leapmotion.com/0.2.0/leap.min.js"></script>
 
+    <div class="cb toggle-fbo">
+      <input class="toggle" type="checkbox"/>
+    </div>
 
     <script>
       var CIRCLE_DURATION = 750;
@@ -190,14 +188,19 @@
           gesture.radius >= CIRCLE_RADIUS) {
             var clockwise = gesture.normal[2] <= 0;
             clockwise ? console.log('circle clockwise') : console.log('circle counter-clockwise');
+            var amountIncrease = Math.round(gesture.progress);
             if (clockwise) {
               // TURN UP VOLUME
-              raiseVolume();
-              console.log("volume up");
+              for (var i = 0; i < amountIncrease; i++) {
+                raiseVolume();
+                console.log("volume up");
+              }
             } else {
               // turn down volume
-              lowerVolume();
-              console.log("volume down");
+              for (var i = 0; i < amountIncrease; i++) {
+                lowerVolume();
+                console.log("volume down");
+              }
             }
             return true;
         }
@@ -263,7 +266,7 @@
     <script src="javascripts/vendor/stats.min.js"></script>
     <script src="javascripts/vendor/leap.min.js"></script>
     <script src="javascripts/particles.js"></script>
-
+    <script src="/javascripts/index.js"></script>
 
   </body>
 </html>
