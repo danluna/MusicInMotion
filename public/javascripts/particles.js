@@ -350,7 +350,7 @@ gl.setup = function() {
 
         // Load the particle asset into the texture
         var particleTextureImage = new Image();
-        particleTextureImage.src = 'img/particle.png';
+        particleTextureImage.src = 'images/particle.png';
         particleTextureImage.onload = function() {
 
             // Activate the correct texture unit and bind the texture to it
