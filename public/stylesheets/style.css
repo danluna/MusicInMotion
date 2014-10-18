@@ -1,8 +1,43 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#container {
+  width: 900px;
+  margin: 0 auto;
+  height: 600px;
+  text-align: center;
+}
+
+#left {
+  width: 200px;
+  height: 600px;
+  background-color: black;
+  float: left;
+}
+
+#right {
+  width: 700px;
+  height: 600px;
+  float: right;
+}
+
+#title {
+  text-align: center;
+}
+
+#soundArea {
+  height: 450px;
+  width: 700px;
+  background-color: yellow;
+}
+
+#playlistArea {
+  height: 150px;
+  width: 700px;
+  background-color: red;
 }
